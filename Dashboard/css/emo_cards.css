@@ -1,0 +1,62 @@
+.emo_containers{
+    display: flex;
+    justify-content: space-around;
+}
+
+.canv-container{
+    position: relative;
+    padding-top: 1rem;
+    background-color: var(--emo-card-bgcolor);
+    color:var(--emo-card-color);
+    border-radius: 10px;
+    box-shadow: var(--emo-card-shadowbox);
+}
+
+.canv-container >img {
+    position: absolute;
+    height: 108px;
+    width: 105px;
+    top: 39%;
+    left: 38%;
+    bottom: 0;
+    right: 0;
+}
+.eye_img{
+    width:85px;
+    left:38%;
+  }
+  
+  .like_img{
+    width:70px;
+    height:70px;
+    left: 41%;
+  }
+  .canv-container h4{
+      font-size: 1.56rem;
+  }
+.h4Attention{
+    width: max-content;
+    margin: 0 auto 1em auto;
+    
+}  
+
+.h4Satisfaction{
+    width: max-content;
+    margin: 0 auto 1em auto;
+    
+}
+.h4Autentication{
+    width: max-content;
+    margin: 0 auto 1em auto;
+    
+}
+
+@media screen and (max-width: 768px){
+    .emo_containers{
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        flex-shrink: 3;
+    }
+    
+    }

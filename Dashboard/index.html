@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/content.css">
+    <link rel="stylesheet" href="css/emo_cards.css">
+    <link rel="stylesheet" href="css/events-card.css">
+    <link rel="stylesheet" href="all.css">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="header">
+        <div class="left-head">
+            <div class="logo"><img src="img/logo.svg" alt="" class="logoimg"></div>
+        </div>
+        <div class="central-head">
+            <!--<div class="searchdiv"><input type="text" class="search_input"></div>-->
+            <div class="search">
+                <input type="text" placeholder="search" />
+                <div class="symbol">
+                    <!--<i class="cloud fas fa-home nav-icon"></i>-->
+                    <i class=" lens fas fa-search nav-icon"></i>
+                </div>
+              </div>
+        </div>
+        <div class="right-head">
+            
+            <div class="notification-div fas fa-bell" id="notificationIcon">
+                <div class="user-notification-div hidden" id="userNotificationDiv">
+                    <ul class="ul-notification-menu">
+                        <li class="li-user-menu"><a href="#"><span>Nessuna notifica</span></a></li>
+                        <hr>
+                        
+                </div>
+            </div>
+            <div class="user-icon-div fas fa-user" id="user-menu-icon">
+                <div class="user-menu-dropdown hidden" id="user-menu">
+                    <ul class="ul-user-menu">
+                        <li class="li-user-menu"><a href="#"><i class="fas fa-cog"></i> <span>Preferences</span></a></li>
+                        <hr>
+                        <li class="li-user-menu"><a href="#"><i class="fas fa-sign-in-alt"></i> <span>Sign In</span></a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="page">
+        <div id="sidebar" class="hidden">
+            <nav id="nav-menu" >
+                <ul class="nav-menu-items">
+                    <div id="navbar-toggle">
+        
+                        <div id="sidebar-title">
+                            <span>Sidebar title</span>
+                        </div>
+                        <a href="#" class="hide-menu" id="hiding-arrow">
+                            <i class="fas fa-chevron-left nav-icon"></i>
+                        </a>
+                        <!--<a href="#"><h1><i class="fab fa-youtube" id="youtube-logo"></i><span>youtube</span></h1></a>-->
+                    </div>
+                    <hr />
+                    <div class="nav nav-section">
+                        <li class="nav-text"><a href="#"><i class="fas fa-home nav-icon"></i><span>Home</span></a></li>
+                        <li class="nav-text"><a href="#"><i class="fas fa-fire nav-icon"></i><span> Eventi</span></a></li>
+                        <li class="nav-text"><a href="#"><i class="fab fa-youtube nav-icon"></i><span>Statistiche</span></a></li>
+                    </div>
+                    <hr/>
+                    <div class="nav nav-section">
+                        <li class="nav-text"><a href="#"><i class="fas fa-play-circle nav-icon"></i><span>Library</span></a></li>
+                        <li class="nav-text"><a href="#"><i class="fas fa-history nav-icon"></i><span>Storico</span></a></li>
+                        <li class="nav-text"><a href="#"><i class="fas fa-clock nav-icon"></i><span>Prenota Evento</span></a></li>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+        <div id="content">
+                <h2>Statistiche Emotive Generali</h2>
+                <div class="emo_containers">
+                    <div class="canv-container">
+                        <h4 class="h4Attention" > Attenzione</h4>
+                        <img class="eye_img" src="img/eye.png">
+                        <canvas id="attention-piechart" width="437" height="375" style="display: block; height: 300px; width: 350px;"></canvas>
+                    </div>
+                    <div class="canv-container">
+                        <h4 class="h4Satisfaction" > Autenticazione</h4>
+                        <img src="img/face.png" class="face_img">
+                        <canvas id="presence-piechart" width="437" height="375" style="display: block; height: 300px; width: 350px;"></canvas>
+                    </div>
+                    <div class="canv-container">
+                        <h4 class="h4Autentication" > Soddisfazione</h4>
+                        <img class="like_img" src="img/like.png">
+                        <canvas id="satisfaction-piechart" width="437" height="375" style="display: block; height: 300px; width: 350px;"></canvas>
+                    </div>
+                </div><!--end div #emo_containers-->
+                <div class="events_container"><!-- begin events container-->
+                    <h2 class="events_title">Eventi</h2>
+                    <div class="events">
+                        
+                        <div class="event">
+                            <div class="rank">3</div>
+                    
+                            <div class="front">
+                            <img class="thumbnail" src="img/game-cover.jpg" alt="" />
+                            <h3 class="name icon">Event name</h3>
+                            <div class="stats">
+                                <p class="viewers icon">539.9k</p>
+                                <div class="streamers">
+                                <img src="img/streamer-1.jpg" alt="" />
+                                <img src="img/streamer-2.jpg" alt="" />
+                                <img src="img/streamer-3.jpg" alt="" />
+                                </div>
+                            </div>
+                            </div>
+                    
+                            <div class="back">
+                            <div class="streaming-info">
+                                <!--<p class="event-stat">559k<span>Watching</span></p>-->
+                                <p class="event-stat">2 ago<span>2020</span></p>
+                                <!--<p class="event-stat">25.8k<span>Streams</span></p>-->
+                                <p class="event-stat">25.8k<span>Spettatori</span></p>
+                            </div>
+                            <button class="btn">Vedi statistiche</button>
+                            
+                            <div class="streamers">
+                                <div class="streamer">
+                                <div class="icon"><img src="img/streamer-1.jpg" alt="" /></div>
+                                <p class="name">Giorgio Aurispa</p>
+                                <p class="number">Relatore</p>
+                                </div>
+                                <div class="streamer">
+                                <div class="icon"><img src="img/streamer-2.jpg" alt="" /></div>
+                                <p class="name">Vanessa sama</p>
+                                <p class="number">Relatore</p>
+                                </div>
+                                <div class="streamer">
+                                <div class="icon"><img src="img/streamer-3.jpg" alt="" /></div>
+                                <p class="name">Mario brera</p>
+                                <p class="number">Relatore</p>
+                                </div>
+                            </div>
+                            </div>
+                    
+                            <div class="background">
+                            <img src="img/game-cover.jpg" alt="" />
+                            </div>
+                        </div><!--end div event-->
+                        
+                        
+                        
+
+                    </div><!--end div #events-->
+                </div><!--end #events_container-->
+                
+            
+        </div><!--end div content-->
+    </div>
+    <script src="js/beaviour.js"></script>
+    <script src="js/jQuery.js"></script>
+    <script src="js/Chart.js"></script>
+    <script src="js/emostats.js"></script>
+    <script src="js/magheggi.js"></script>
+</body>
+</html>

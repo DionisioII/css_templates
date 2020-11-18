@@ -1,0 +1,86 @@
+hr{
+    background-color: #464646;
+    height: 1px;
+    border: none;
+}
+
+#sidebar{
+    background-color: var(--sidebar-bgcolor);
+    color: var(--sidebar-txtcolor);
+    height: 100vh;
+    width: 300px;
+    
+    
+}
+
+#sidebar.hidden{
+    width: 5rem !important;
+
+}
+#sidebar.hidden span{
+    display: none;
+}
+#sidebar.hidden #sidebar-title{display: none;}
+
+
+#navbar{
+    
+    height: 100vh;
+    display: flex;
+    justify-content: start;
+    align-content: center;
+}
+
+
+#navbar{
+    
+    display: flex;
+    justify-content: start;
+    align-content: center;
+}
+#navbar-toggle{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 1rem auto;
+}
+
+.menu-bars{
+    margin-left: 0.8rem;
+    font-size: 1.2rem;
+    color: black;
+    text-transform: uppercase !important;
+}
+#sidebar-title{
+    font-size: 1.2rem;
+}
+.hide-menu{
+    text-decoration: none;
+}
+.hide-menu i{
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.nav-text{
+    display:flex;
+    justify-content: start;
+    list-style: none;
+    height: 50px;
+    padding: 1rem;
+}
+
+.nav-text a{
+    text-decoration: none;
+    color:var(--sidebar-txtcolor);
+    font-size: 0.9rem;
+    margin-left:1rem;
+}
+.nav-text a i{
+    margin-right: 0.5rem;
+}
+
+.nav-text:hover{
+    background-color: rgba(144,144, 144, 0.219);
+    cursor:pointer;
+}
