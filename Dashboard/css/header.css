@@ -71,9 +71,14 @@
       width: 100%;
   }
 
+  .left-head{
+    display: flex;
+  }
+
   .header .notification-div{
     margin:1.5rem;
     }
+
  .right-head .fas{
    padding:1rem;
  }
@@ -280,3 +285,45 @@
     transition: top 0.3s ease, left 0.3s ease, fill 0.2s ease 0.2s;
   }
   /*END SEARCH*/
+
+  .hamburger-icon{
+    font-size:xx-large;
+    margin:0 1rem ;
+    display:none !important;
+  }
+
+  @media screen and (max-width: 992px) {
+    .right-head >.fas {
+      padding: 0;
+  }
+    .right-head {
+      display: flex;
+      margin-right: 1rem;
+      align-items: center;
+  }
+    .user-menu-dropdown {
+      
+      left: -140px;
+      
+  }
+    .user-notification-div {
+     
+      left: -90px;
+      
+  }
+  .header .notification-div {
+    margin: 1.5rem;
+    margin-left:.7rem;
+}
+
+  .hamburger-icon{
+    display:block !important;
+  }
+  .logo,#hiding-arrow{
+    display:none;
+  }
+
+  #sidebar.hidden{
+    display: none;
+  }
+  }

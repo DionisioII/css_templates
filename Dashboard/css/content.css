@@ -2,6 +2,7 @@
     background-color: var(--content-bgcolor);
     padding-left:2rem;
     padding-top: 2rem;
+    padding-right: 1.2rem;
     width:100%;
     max-height: 85vh;
     overflow: auto;
@@ -14,7 +15,7 @@
 }
 .events_container h2{
     font-size: 1.5rem;
-    padding-bottom: 1rem;
+    margin-bottom: 0px;
 }
 
 .event_title{

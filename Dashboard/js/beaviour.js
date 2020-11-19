@@ -5,10 +5,15 @@ const userMenuIcon = document.querySelector('#user-menu-icon')
 const userMenu = document.querySelector('#user-menu')
 const notificationMenuIcon = document.querySelector('#notificationIcon')
 const notificationMenu = document.querySelector('#userNotificationDiv')
+const hidingHamburger = document.querySelector('#hiding-hamburger')
 
 
 
 hideMenuIcon.addEventListener('click',function(){
+    sideBar.classList.toggle('hidden')
+    
+})
+hidingHamburger.addEventListener('click',function(){
     sideBar.classList.toggle('hidden')
     
 })
