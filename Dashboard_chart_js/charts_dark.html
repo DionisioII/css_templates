@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/chart.css">
+    <link rel="stylesheet" href="css/body_dark.css"><!--Do not include when porting dashboard to external page-->
+    
+    <title>Chart Dashboard</title>
+</head>
+<body>
+  <div class="selects_container container">
+    <div class="video_select_div">
+        <label class="select vid_select" for="video_select">
+          <select name="" id="video_select"  >
+            <option value="0">seleziona video</option>
+            <option value="2">prova2</option>
+            <option value="3">prova3</option>
+            <option value="4">prova4</option>
+          </select>
+        </label>
+    </div>
+    <div class="from_date_div">
+      <label class="select" for="start">
+
+      <input type="date" id="from_date_input" name="trip-start"
+            value=""
+            min="2018-01-01" max="2022-12-31">
+      </label>
+    </div>
+    <div class="to_date_div">
+      <label class="select" for="to_date_input">
+
+      <input type="date" id="to_date_input" name="trip-start"
+            value=""
+            min="2018-01-01" max="2022-12-31">
+      </label>
+    </div>
+  </div>
+  <div class="user_flow_div container">
+    <h2 class="chart_title">Traffico Utenti</h2>
+    <div class="user_flow_chart_div">
+      <canvas id="user_flow_chart" width="1300" height="400" ></canvas>
+    </div>
+    
+  </div>
+  
+  <div class="age_gender_container double_chart_container container">
+    <div class="age_chart_div">
+      <h2 class="chart_title left_disposition">Anagrafica</h2>
+        <canvas id="age_chart" width="600" height="400" ></canvas>
+      </div>
+    <div class="gender_chart_div">
+      <h2 class="chart_title right_disposition">Genere</h2>
+        <canvas id="gender_chart" width="600" height="400" ></canvas>
+    </div>
+  </div>
+
+  <div class="engagement_attention_container double_chart_container container ">
+    <div class="engagement_chart_div">
+      <h2 class="chart_title left_disposition">Coinvolgimento</h2>
+        <canvas id="engagement_chart" width="580" height="400" ></canvas>
+    </div>
+
+    <div class="attention_chart_div">
+      <h2 class="chart_title right_disposition">Attenzione</h2>
+        <canvas id="attention_chart" width="600" height="400" ></canvas>
+    </div>
+  </div>
+
+  <div class="presence_along_video_with_engagement_container_div container">
+      <h2 class="chart_title">Presenza durante il video con coinvolgimento</h2>
+      <div class="presence_along_video_with_engagement_chart_div">
+        <canvas id="presence_along_video_with_engagement_chart"  width="1300" height="400"></canvas>
+      </div>
+  </div>
+
+  <div class="emotions_valence_chart_container double_chart_container container">
+    <div class="emotions_chart_div">
+      <h2 class="chart_title left_disposition">Emozioni</h2>
+      <canvas id="emotions_chart" width="600" height="400" ></canvas>
+    </div>
+
+    <div class="valence_chart_div">
+      <h2 class="chart_title right_disposition">Soddifazione</h2>
+      <canvas id="valence_chart" width="600" height="400" ></canvas>
+    </div>
+  </div>
+
+  <div class="emotions_along_video_with_valence_container_div container">
+    <h2 class="chart_title">Emozioni durante video con andamento soddifazione</h2>
+    <div class="emotions_along_video_with_valence_chart_div">
+      <canvas id="emotions_along_video_with_valence_chart"  width="1300" height="400"></canvas>
+    </div>
+</div>
+  
+
+
+    
+</body>
+<script src="js/jQuery.js"></script>
+<script src="js/Chart2_9.js"></script>
+<script src="js/charts_logic.js"></script>
+</html>

@@ -1,0 +1,8 @@
+Visualize the dashboard charts by opening charts_dark.html ( or charts_light.html) with a browser
+
+To copy dashboard into external site:
+
+1- Copy html code inside body tag of charts_dark.html ( or charts_light.html) into div container of specific web page
+2- include all files inside js directory
+3- include charts.css inside css folder
+4- DO NOT INCLUDE body_dark.css (or body_light.css) as they are only needed when rendering trough standlone file ( charts_dark.html or charts_light.html)

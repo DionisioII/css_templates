@@ -1,0 +1,16 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+    display: -ms-grid;
+    display:grid;
+    place-items: center;
+    background: var(--clr-dark);
+    color: var(--clr-light);
+}
+
+@media screen and (max-width: 720px)  {
+    body{
+        display: block;
+    }
+    
+  }
