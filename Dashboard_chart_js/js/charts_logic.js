@@ -100,6 +100,9 @@ $(document).ready(function() {
              selectVideo.append($("<option></option>")
                     .attr("value", "all").text('tutti'));
              $.each(response, function(key,value) {
+             if(value == "None" || value == null || value ==""){
+                 return true; // continue;
+             }
              selectVideo.append($("<option></option>")
                     .attr("value", value).text(value));
                 });
