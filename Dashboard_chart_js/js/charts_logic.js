@@ -26,13 +26,14 @@ var valence_chart;
 var emotions_along_video_with_valence_chart_ctx;
 var emotions_along_video_with_valence_chart;
 
-var postRequestdata = {dataFrom: '2020-04-05', dataTo:'2022-04-05'};
+var months_ago = 9;
+var postRequestdata  = getInitPostRequestData();
 
 var selectVideo;
 var dateFromInput;
 var dateToInput;
 
-var months_ago = 9;
+
 
 
 
@@ -53,11 +54,12 @@ $(document).ready(function() {
    
     var promise_DistributionData = getEmotionDistributionValues();
     promise_DistributionData.then((data) => {
+        
         var [videolabels,engagementValues,valenceValues,
             neutralValues,joyValues,surpriseValues,angerValues,
             disgustValues,sadnessValues,fearValues,facesNumbers,
             stackedEmotions] = data;
-        console.log(videolabels);
+        
         initialize_engagement_chart(videolabels, engagementValues);
 
     
@@ -90,11 +92,10 @@ $(document).ready(function() {
         data: postRequestdata,
         dataType: 'json',
         error: function(e){
-            console.log("error event list");    
+                
         },
         success: function(json) {
             response = json.Response
-             console.log(response)
              selectVideo = $("#video_select");
              selectVideo.empty(); // remove old options
              selectVideo.append($("<option></option>")
@@ -127,11 +128,40 @@ $(document).ready(function() {
 
  }
 
+ function getInitPostRequestData(){
+    var dict = {}
+    
+   
+        var date = new Date();
+        var dd = String(date.getDate()).padStart(2, '0');
+        date.setMonth(date.getMonth() - months_ago );
+        var mm = String(date.getMonth()).padStart(2, '0'); //January is 0!
+        var yyyy = date.getFullYear();
+
+        date = yyyy + '-' + mm + '-' + dd;
+        dict['dataFrom']= date;
+        
+     
+    
+     
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        dict['dataTo']= today;
+
+     
+     
+       return dict;
+ }
+
  function updateDiagrams(){
     var dateFROM = dateFromInput.val();
     var dateTO = dateToInput.val();
     var videoname = selectVideo.val();
-    console.log(dateFROM);
+    
     var dict = {}
     if(videoname !== null && videoname !== '' && videoname != "all") {
         dict['videoId']= videoname;
@@ -163,7 +193,7 @@ $(document).ready(function() {
         dict['dataTo']= today;
 
      }
-     console.log(dict);
+     
      postRequestdata = dict;
 
      update_user_flow_chart();
@@ -179,7 +209,7 @@ $(document).ready(function() {
              neutralValues,joyValues,surpriseValues,angerValues,
              disgustValues,sadnessValues,fearValues,facesNumbers,
              stackedEmotions] = data;
-         //console.log(videolabels);
+         //
          update_valence_chart(videolabels,valenceValues);
          update_engagement_chart(videolabels, engagementValues);
  
@@ -215,7 +245,7 @@ $(document).ready(function() {
             data: postRequestdata,
             dataType: 'json',
             error: function(e){
-                console.log("error retrieving user flow data");    
+                    
             },
             success: function(json) {
                 response = json.Response
@@ -226,7 +256,7 @@ $(document).ready(function() {
                     
                     labels.push( response[element]['Date'])
                     data.push(parseInt( response[element]['Users']))
-                    console.log(response[element]['Date']);
+                    
                     
                 }
                 init();
@@ -280,7 +310,7 @@ $(document).ready(function() {
     var labels = [];
     
     var data = [];
-
+    
     if (chart_labels == null || chart_data == null){
         jQuery.ajax({
             async: true,
@@ -290,7 +320,7 @@ $(document).ready(function() {
             data: postRequestdata,
             dataType: 'json',
             error: function(e){
-                console.log("error retrieving user flow data");    
+                    
             },
             success: function(json) {
                 response = json.Response
@@ -301,7 +331,7 @@ $(document).ready(function() {
                     
                     labels.push( response[element]['Date'])
                     data.push(parseInt( response[element]['Users']))
-                    console.log(response[element]['Date']);
+                    
                 }
                 update();
             
@@ -314,28 +344,33 @@ $(document).ready(function() {
     }
     function update(){
         //user_flow_chart_ctx = document.getElementById('user_flow_chart').getContext('2d');
-        /*console.log(user_flow_chart.data);
+        
+        /*
+        user_flow_chart.data.labels.pop();
+        user_flow_chart.data.datasets.forEach((dataset) => {
+            dataset.data.pop();
+        });
+        user_flow_chart.update()*/
+
         while (user_flow_chart.data.labels.length) {
             user_flow_chart.data.labels.pop();
           }
         while (user_flow_chart.data.datasets[0].data.length) {
             user_flow_chart.data.datasets[0].data.pop();
           }
-          user_flow_chart.clear();
-          user_flow_chart.update();
+          //user_flow_chart.clear();
+        user_flow_chart.update();
         labels.forEach(element => {
             user_flow_chart.data.labels.push(element)
         });
         data.forEach(  element =>{
             user_flow_chart.data.datasets[0].data.push(element)
         })
-        user_flow_chart.update();*/
-        
+        user_flow_chart.update();
+        /*
         user_flow_chart.data.labels = labels; 
         user_flow_chart.data.data = data; 
-        console.log(labels)
-        console.log(data)
-        user_flow_chart.update();
+        user_flow_chart.update();*/
     }      
     
  }
@@ -354,16 +389,15 @@ $(document).ready(function() {
             data: postRequestdata,
             dataType: 'json',
             error: function(e){
-                console.log("error retrieving user flow data");    
+                    
             },
             success: function(json) {
                 response = json.Response[0]
                 
-                console.log(Object.keys(response));
                 keys = Object.keys(response);
                 
                 for( let element in keys ){
-                    console.log(response[keys[element]]);
+                    
                     if (keys[element] == "total_records")
                     continue;
                     labels.push( keys[element])
@@ -419,6 +453,24 @@ function init(){
         },
         
         options: {
+            tooltips: {
+                callbacks: {
+                  label: function(tooltipItem, data) {
+                    //get the concerned dataset
+                    var dataset = data.datasets[tooltipItem.datasetIndex];
+                    //calculate the total of this data set
+                    var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                      return previousValue + currentValue;
+                    });
+                    //get the current items value
+                    var currentValue = dataset.data[tooltipItem.index];
+                    //calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
+                    var percentage = Math.floor(((currentValue/total) * 100)+0.5);
+              
+                    return data.labels[tooltipItem.index] +" :" + percentage + "%";
+                  }
+                }
+              } ,
             //cutoutPercentage: 40,
         responsive: true,
     
@@ -444,16 +496,15 @@ function init(){
             data: postRequestdata,
             dataType: 'json',
             error: function(e){
-                console.log("error retrieving user flow data");    
+                    
             },
             success: function(json) {
                 response = json.Response[0]
                 
-                console.log(Object.keys(response));
                 keys = Object.keys(response);
                 
                 for( let element in keys ){
-                    console.log(response[keys[element]]);
+                    
                     if (keys[element] == "total_records")
                     continue;
                     labels.push( keys[element])
@@ -501,13 +552,13 @@ function init(){
         //age_chart.data.datasets.forEach((dataset) => {
           //  dataset.data.push(data);
         //});
-        console.log(age_chart.data);
+        
         
         //age_chart.destroy();
         //age_chart.reset();
         //age_chart.destroy();
         //age_chart_ctx.clearRect(0, 0, age_chart_ctx.width, age_chart_ctx.height);
-        //console.log(age_chart_ctx);
+        //
         
         
         //$("#age_chart").replaceWith($('<canvas id="age_chart" width="600" height="400"></canvas>'));
@@ -537,16 +588,15 @@ function init(){
             data: postRequestdata,
             dataType: 'json',
             error: function(e){
-                console.log("error retrieving user flow data");    
+                    
             },
             success: function(json) {
                 response = json.Response[0]
                 
-                console.log(Object.keys(response));
                 keys = Object.keys(response);
                 
                 for( let element in keys ){
-                    console.log(response[keys[element]]);
+                    
                     if (keys[element] == "total_records")
                     continue;
                     labels.push( keys[element])
@@ -597,6 +647,24 @@ function init(){
         },
         
         options: {
+            tooltips: {
+                callbacks: {
+                  label: function(tooltipItem, data) {
+                    //get the concerned dataset
+                    var dataset = data.datasets[tooltipItem.datasetIndex];
+                    //calculate the total of this data set
+                    var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                      return previousValue + currentValue;
+                    });
+                    //get the current items value
+                    var currentValue = dataset.data[tooltipItem.index];
+                    //calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
+                    var percentage = Math.floor(((currentValue/total) * 100)+0.5);
+              
+                    return data.labels[tooltipItem.index] +" :" + percentage + "%";
+                  }
+                }
+              } ,
             //cutoutPercentage: 40,
         responsive: true,
     
@@ -621,16 +689,15 @@ function init(){
             data: postRequestdata,
             dataType: 'json',
             error: function(e){
-                console.log("error retrieving user flow data");    
+                    
             },
             success: function(json) {
                 response = json.Response[0]
                 
-                console.log(Object.keys(response));
                 keys = Object.keys(response);
                 
                 for( let element in keys ){
-                    console.log(response[keys[element]]);
+                    
                     if (keys[element] == "total_records")
                     continue;
                     labels.push( keys[element])
@@ -686,16 +753,15 @@ function init(){
             data: postRequestdata,
             dataType: 'json',
             error: function(e){
-                console.log("error retrieving attention flow data");    
+                    
             },
             success: function(json) {
                 response = json.Response[0]
                 
-                console.log(Object.keys(response));
                 keys = Object.keys(response);
                 
                 for( let element in keys ){
-                    console.log(response[keys[element]]);
+                    
                     if (keys[element] == "total_records")
                     continue;
                     labels.push( keys[element])
@@ -746,6 +812,24 @@ function init(){
             },
             
             options: {
+                tooltips: {
+                    callbacks: {
+                      label: function(tooltipItem, data) {
+                        //get the concerned dataset
+                        var dataset = data.datasets[tooltipItem.datasetIndex];
+                        //calculate the total of this data set
+                        var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                          return previousValue + currentValue;
+                        });
+                        //get the current items value
+                        var currentValue = dataset.data[tooltipItem.index];
+                        //calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
+                        var percentage = Math.floor(((currentValue/total) * 100)+0.5);
+                  
+                        return data.labels[tooltipItem.index] +" :" + percentage + "%";
+                      }
+                    }
+                  } ,
                 //cutoutPercentage: 40,
             responsive: true,
         
@@ -771,16 +855,15 @@ function init(){
             data: postRequestdata,
             dataType: 'json',
             error: function(e){
-                console.log("error retrieving user flow data");    
+                    
             },
             success: function(json) {
                 response = json.Response[0]
                 
-                console.log(Object.keys(response));
                 keys = Object.keys(response);
                 
                 for( let element in keys ){
-                    console.log(response[keys[element]]);
+                    
                     if (keys[element] == "total_records")
                     continue;
                     labels.push( keys[element])
@@ -835,16 +918,16 @@ function init(){
             data: postRequestdata,
             dataType: 'json',
             error: function(e){
-                console.log("error retrieving attention flow data");    
+                    
             },
             success: function(json) {
                 response = json.Response[0]
                 
-                console.log(response);
+                
                 keys = Object.keys(response);
                 
                 for( let element in keys ){
-                    console.log(response[keys[element]]);
+                    
                     if (keys[element] == "total_records")
                     continue;
                     labels.push( keys[element])
@@ -897,15 +980,32 @@ function init(){
             },
             
             options: {
+                tooltips: {
+                    callbacks: {
+                      label: function(tooltipItem, data) {
+                        //get the concerned dataset
+                        var dataset = data.datasets[tooltipItem.datasetIndex];
+                        //calculate the total of this data set
+                        var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                          return previousValue + currentValue;
+                        });
+                        //get the current items value
+                        var currentValue = dataset.data[tooltipItem.index];
+                        //calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
+                        var percentage = Math.floor(((currentValue/total) * 100)+0.5);
+                  
+                        return data.labels[tooltipItem.index] +" :" + percentage + "%";
+                      }
+                    }
+                  } ,
                 //cutoutPercentage: 40,
             responsive: true,
-        
+                    
         }
         });
-        console.log("emotions data")
         emotions_chart.clear();
         emotions_chart.update();
-        console.log(emotions_chart.data);
+        
     }
     
     
@@ -925,16 +1025,15 @@ function init(){
             data: postRequestdata,
             dataType: 'json',
             error: function(e){
-                console.log("error retrieving user flow data");    
+                    
             },
             success: function(json) {
                 response = json.Response[0]
                 
-                console.log(Object.keys(response));
                 keys = Object.keys(response);
                 
                 for( let element in keys ){
-                    console.log(response[keys[element]]);
+                    
                     if (keys[element] == "total_records")
                     continue;
                     labels.push( keys[element])
@@ -1040,18 +1139,33 @@ function init(){
         data = chart_data;
     }
 
-   //for valence chart
- //valence_chart_ctx = document.getElementById('valence_chart').getContext('2d');
- //console.log(valence_chart.data);
- //valence_chart.data.labels = labels;
- console.log(data)
- valence_chart.data.datasets[0].data = data;
- valence_chart.data.labels = labels;
- 
- //valence_chart.data.labels = labels; 
- //valence_chart.data.data = data; 
+    while (valence_chart.data.labels.length) {
+        valence_chart.data.labels.pop();
+      }
+    while  (valence_chart.data.datasets[0].data.length) {
+        valence_chart.data.datasets[0].data.pop();
+      }
+      //user_flow_chart.clear();
+      valence_chart.update();
+    labels.forEach(element => {
+        valence_chart.data.labels.push(element)
+    });
+    data.forEach(  element =>{
+        valence_chart.data.datasets[0].data.push(element)
+    })
+    valence_chart.update();
+    /*
+    //for valence chart
+    //valence_chart_ctx = document.getElementById('valence_chart').getContext('2d');
+    //
+    //valence_chart.data.labels = labels;
+    valence_chart.data.datasets[0].data = data;
+    valence_chart.data.labels = labels;
+    
+    //valence_chart.data.labels = labels; 
+    //valence_chart.data.data = data; 
 
- valence_chart.update();
+    valence_chart.update();*/
 
     
  }
@@ -1111,9 +1225,27 @@ function init(){
         labels = chart_labels;
         data = chart_data;
     }
+ 
+    /*
+    while (engagement_chart.data.labels.length) {
+        engagement_chart.data.labels.pop();
+      }
+    while (engagement_chart.data.datasets[0].data.length) {
+        engagement_chart.data.datasets[0].data.pop();
+      }
+      //engagement_chart.clear();
+      engagement_chart.update();
+    labels.forEach(element => {
+        engagement_chart.data.labels.push(element)
+    });
+    data.forEach(  element =>{
+        engagement_chart.data.datasets[0].data.push(element)
+    });
+    console.log(engagement_chart.data)
+    engagement_chart.update();
+    engagement_chart.update();*/
            
     //for engagement chart
-    console.log(engagement_chart.data)
     engagement_chart.data.labels = labels;
     engagement_chart.data.datasets[0].data = data;
     engagement_chart.update(); 
@@ -1211,14 +1343,36 @@ function init(){
         data1 = chart_data_1;
         data2 = chart_data_2;
     }
+
+    while (presence_along_video_with_engagement_chart.data.labels.length) {
+        presence_along_video_with_engagement_chart.data.labels.pop();
+      }
+    while (presence_along_video_with_engagement_chart.data.datasets[0].data.length) {
+        presence_along_video_with_engagement_chart.data.datasets[0].data.pop();
+      }
+    while (presence_along_video_with_engagement_chart.data.datasets[1].data.length) {
+        presence_along_video_with_engagement_chart.data.datasets[1].data.pop();
+      }
+      presence_along_video_with_engagement_chart.update();
+    labels.forEach(element => {
+        presence_along_video_with_engagement_chart.data.labels.push(element)
+    });
+    data1.forEach(  element =>{
+        presence_along_video_with_engagement_chart.data.datasets[0].data.push(element)
+    });
+    data2.forEach(  element =>{
+        presence_along_video_with_engagement_chart.data.datasets[1].data.push(element)
+    });
+    presence_along_video_with_engagement_chart.update();
+    
     
     //for presence_along_video_with_engagement_chart 
-    
+    /*
     presence_along_video_with_engagement_chart.data.labels = labels;
     presence_along_video_with_engagement_chart.data.datasets[0].data = data1;
     presence_along_video_with_engagement_chart.data.datasets[1].data = data2;
-    //console.log(presence_along_video_with_engagement_chart.data);
-    presence_along_video_with_engagement_chart.update();
+    //
+    presence_along_video_with_engagement_chart.update();*/
     
        
 
@@ -1266,7 +1420,7 @@ function init(){
         fearData = fear_data;
         
     }
-    //console.log(data1);
+    //
     //for emotions_along_video_with_valence_chart 
     emotions_along_video_with_valence_chart_ctx = document.getElementById('emotions_along_video_with_valence_chart').getContext('2d');
     var barChartData = {
@@ -1459,17 +1613,16 @@ function init(){
                 data: postRequestdata,
                 dataType: 'json',
                 error: function(e){
-                    console.log("error retrieving user flow data");
+                    
                     resolve(false)
                        
                 },
                 success: function(json) {
                     response = json.Response
                    
-                    console.log(Object.keys(response));
+                    
                     //keys = Object.keys(response);
                     response.forEach(element => {
-                        console.log(element)
                         videolabels.push(element['minute_video']);
                         engagementValues.push(element['engagement']);
                         valenceValues.push(element['valence']);
@@ -1502,24 +1655,7 @@ function init(){
     
         return getData();
     
-        getData().then((data) => {
-        console.log("EmotionDistribution: data retrieved");
-        console.log("EmotionDistribution: data retrieved");
-        console.log("EmotionDistribution: data retrieved");
-        console.log("EmotionDistribution: data retrieved");
-        console.log("EmotionDistribution: data retrieved");
-        console.log("EmotionDistribution: data retrieved");
         
-        
-      })
-      .catch((error) => {
-        console.log(error)
-      });
-      console.log("Dopo emo");
-      return [videolabels,engagementValues,valenceValues,
-        neutralValues,joyValues,surpriseValues,angerValues,
-        disgustValues,sadnessValues,fearValues,facesNumbers,stackedEmotions];
-       
     
 
     
