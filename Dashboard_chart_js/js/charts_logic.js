@@ -928,7 +928,7 @@ function init(){
                 
                 for( let element in keys ){
                     
-                    if (keys[element] == "total_records")
+                    if (keys[element] == "num_people")
                     continue;
                     labels.push( keys[element])
                     data.push(isNaN( parseInt( response[keys[element]])) ?  0  : parseInt( response[keys[element]]) );
@@ -1034,7 +1034,7 @@ function init(){
                 
                 for( let element in keys ){
                     
-                    if (keys[element] == "total_records")
+                    if (keys[element] == "num_people")
                     continue;
                     labels.push( keys[element])
                     data.push(isNaN( parseInt( response[keys[element]])) ?  0  : parseInt( response[keys[element]]) )
